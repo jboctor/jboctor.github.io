@@ -4,4 +4,6 @@ const host = 'api.riotgames.com';
 var summoner_name;
 var region;
 
+var riot = {
 
+};
