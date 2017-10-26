@@ -1,12 +1,15 @@
 const client_id = '6df951cdbb9f4c3898408c618014b0de';
 const redirect_uri = 'http://jboctor.com/instagram';
+//const redirect_uri = 'http://localhost:8000/instagram';
 const api_url = 'https://api.instagram.com';
 const version = '/v1';
 const authorize_endpoint = '/oauth/authorize/';
 const access_owner_info_endpoint = '/users/self/';
+const access_owner_recent_media_endpoint = '/users/self/media/recent/';
 const response_type = 'token';
 
 var logged_in;
+var access_token;
 
 var instagram = {
   redirectToAuthorize : function () {
@@ -17,7 +20,7 @@ var instagram = {
   verifyAuthorization : function () {
     var url = window.location.href.split('#access_token=');
     if (url.length == 2) {
-      var access_token = url.pop();
+      access_token = url.pop();
       var user_info_url = api_url + version + access_owner_info_endpoint + '?access_token=' + access_token + '&callback=?';
       $.ajax({
         url: user_info_url,
@@ -30,6 +33,25 @@ var instagram = {
     } else {
       instagram.redirectToAuthorize();
     }
+  },
+
+  getRecentMedia : function () {
+    var recent_media_url = api_url + version + access_owner_recent_media_endpoint + '?access_token=' + access_token + '&callback=?';
+    $.ajax({
+      url: recent_media_url,
+      type: 'GET',
+      dataType: 'jsonp',
+      success: function (data) {
+        switch (data.meta.code) {
+          case 200:
+            instagram.displayMedia(data);
+            break;
+          default:
+            instagram.displayUnknownError();
+            break;
+        }
+      }
+    });
   },
 
   handleAuthorization : function (data) {
@@ -55,7 +77,20 @@ var instagram = {
   displayError : function (data) {
     $('#error-msg').text(data.meta.error_message);
     $('#error').removeClass('invisible');
+  },
+
+  displayUnknownError : function () {
+    $('#error-msg').text('Sorry, an unknown error occured.');
+    $('#error').removeClass('invisible');
+  },
+
+  displayMedia : function (data) {
+    data.data.forEach(function (element) {
+      $('#user-photos').append('<img src="' + element.images.low_resolution.url + '"></img>');
+    });
+    $('#user-photos').removeClass('invisible');
   }
 };
 
 instagram.verifyAuthorization();
+instagram.getRecentMedia();
