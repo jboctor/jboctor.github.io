@@ -1,6 +1,6 @@
 const client_id = '6df951cdbb9f4c3898408c618014b0de';
-const redirect_uri = 'http://jboctor.com/instagram/';
-//const redirect_uri = 'http://localhost:8000/instagram/';
+//const redirect_uri = 'http://jboctor.com/instagram/';
+const redirect_uri = 'http://localhost:8000/instagram/';
 const api_url = 'https://api.instagram.com';
 const version = '/v1';
 const authorize_endpoint = '/oauth/authorize/';
@@ -85,8 +85,19 @@ var instagram = {
   },
 
   displayMedia : function (data) {
+    var row_count = 0;
     data.data.forEach(function (element) {
-      $('#user-photos').append('<img src="' + element.images.low_resolution.url + '"></img>');
+      if (row_count % 4 == 0) {
+        $('#user-photos').append('<div class="row text-center pt-2"></div>');
+      }
+      row_count++;
+      $('#user-photos').children()
+        .last()
+        .append(
+          '<div class="col">' +
+            '<img src="' + element.images.low_resolution.url + '" class="img-thumbnail"></img>' +
+          '</div>'
+        );
     });
     $('#user-photos').removeClass('invisible');
   }
