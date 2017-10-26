@@ -1,5 +1,5 @@
 const client_id = '6df951cdbb9f4c3898408c618014b0de';
-const redirect_uri = 'http://localhost:8000/instagram';
+const redirect_uri = 'http://jboctor.com/instagram';
 const api_url = 'https://api.instagram.com';
 const version = '/v1';
 const authorize_endpoint = '/oauth/authorize/';
