@@ -85,16 +85,11 @@ var instagram = {
   },
 
   displayMedia : function (data) {
-    var row_count = 0;
     data.data.forEach(function (element) {
-      if (row_count % 4 == 0) {
-        $('#user-photos').append('<div class="row text-center pt-2"></div>');
-      }
-      row_count++;
       $('#user-photos').children()
         .last()
         .append(
-          '<div class="col">' +
+          '<div class="col-lg-3 col-md-4 col-sm-6">' +
             '<img src="' + element.images.low_resolution.url + '" class="img-thumbnail"></img>' +
           '</div>'
         );
