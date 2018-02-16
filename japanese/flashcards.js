@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     $("#translation").hide();
     $.ajax({
-        url: "wordbank.json"
+        url: "/japanese/wordbank.json"
     }).done(function (data) {
         setUpFlashCards(JSON.parse(data));
         getNextWord();
