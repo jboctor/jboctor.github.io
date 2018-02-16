@@ -7,6 +7,7 @@ $(document).ready(function () {
     $.ajax({
         url: "/japanese/wordbank.json"
     }).done(function (data) {
+        console.log(data);
         setUpFlashCards(JSON.parse(data));
         getNextWord();
     });
