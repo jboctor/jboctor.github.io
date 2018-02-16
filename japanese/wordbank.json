@@ -1,0 +1,41 @@
+{
+    "categories": {
+        "calendar": [
+            {
+                "word":　"日曜日",
+                "furigana": "にちようび",
+                "translation": "Sunday"
+            },
+            {
+                "word":　"月曜日",
+                "furigana": "げつようび",
+                "translation": "Monday"
+            },
+            {
+                "word":　"火曜日",
+                "furigana": "かようび",
+                "translation": "Tuesday"
+            },
+            {
+                "word":　"水曜日",
+                "furigana": "すいようび",
+                "translation": "Wednesday"
+            },
+            {
+                "word":　"木曜日",
+                "furigana": "もくようび",
+                "translation": "Thursday"
+            },
+            {
+                "word":　"金曜日",
+                "furigana": "きんようび",
+                "translation": "Friday"
+            },
+            {
+                "word":　"土曜日",
+                "furigana": "どようび",
+                "translation": "Saturday"
+            }
+        ]
+    }
+}
