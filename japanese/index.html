@@ -4,12 +4,42 @@
         <title>
 
         </title>
-        <script type="text/javascript" src="wordbank.json"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="flashcards.js"></script>
     </head>
     <body>
-        <div>
-            <div>
+        <div class="container-fluid">
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>
+                            Japanese Flashcards
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div id="next" class="col-1 h-25">
+                        <div class="d-flex h-100 justify-content-center align-items-center">
+                            &lt;
+                        </div>
+                    </div>
+                    <div id="flashcard" class="col-lg-6 col-md-10 col-sm-12 text-center border py-5 h-25">
+                        <div class="d-flex h-100 justify-content-center align-items-center">
+                            <h1>
+                                <span id="word"></span>
+                                <span id="translation"></span>
+                            </h1>
+                        </div>
+                    </div>
+                    <div id="next" class="col-1 h-25">
+                        <div class="d-flex h-100 justify-content-center align-items-center">
+                            <h1>&gt;</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
