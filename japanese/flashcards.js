@@ -16,18 +16,19 @@ var flashCard = {
     completedWords : [],
 
     reset : function () {
-        currentWord    = [];
-        wordBank       = [];
-        completedWords = [];
+        this.currentWord    = [];
+        this.wordBank       = [];
+        this.completedWords = [];
     },
 
     setUpFlashCards : function (words) {
         categories = words.categories;
         for (category in categories) {
             for (word in categories[category]) {
-                wordBank.push(categories[category][word]);
+                this.wordBank.push(categories[category][word]);
             }
         }
+        this.wordBank = shuffle(this.wordBank);
         $("#translation").hide();
         $("#flashcard").click(function () {
             flipped = $("#translation").is(":visible");
@@ -42,33 +43,33 @@ var flashCard = {
     },
 
     getPrevWord : function () {
-        if (completedWords.length > 0) {
-            if (currentWord.length != 0) {
-                wordBank.unshift(currentWord);
+        if (this.completedWords.length > 0) {
+            if (this.currentWord.length != 0) {
+                this.wordBank.unshift(this.currentWord);
             }
-            currentWord = completedWords.pop();
-            flashCard.displayWord();
+            this.currentWord = this.completedWords.pop();
+            this.displayWord();
         }
     },
 
     getNextWord : function () {
-        if (wordBank.length > 0) {
-            if (currentWord.length != 0) {
-                completedWords.push(currentWord);
+        if (this.wordBank.length > 0) {
+            if (this.currentWord.length != 0) {
+                this.completedWords.push(this.currentWord);
             }
-            currentWord = wordBank.shift();
-            flashCard.displayWord();
+            this.currentWord = this.wordBank.shift();
+            this.displayWord();
         }
     },
 
     displayWord : function () {
         $("#translation").hide();
         $("#word").show();
-        if (currentWord.length != 0) {
+        if (this.currentWord.length != 0) {
             $("#word").html(
-                "<ruby>" + currentWord["word"] + "<rt>" + currentWord["furigana"] + "</rt></ruby>"
+                "<ruby>" + this.currentWord["word"] + "<rt>" + this.currentWord["furigana"] + "</rt></ruby>"
             )
-            $("#translation").html(currentWord["translation"]);
+            $("#translation").html(this.currentWord["translation"]);
         }
     },
 
