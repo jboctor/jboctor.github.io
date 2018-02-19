@@ -3,14 +3,15 @@ $(document).ready(function () {
         url : "/japanese/wordbank.json",
         dataType : "json"
     }).done(function (data) {
-        flashCard.reset();
-        flashCard.setUpFlashCards(data);
-        flashCard.setUpPrevNextButtons();
-        flashCard.getNextWord();
+        flashcard.data = data;
+        flashcard.reset();
+        flashcard.setUpEventListeners();
+        options.setUpOptions();
     });
 });
 
-var flashCard = {
+var flashcard = {
+    data : [],
     currentWord : [],
     wordBank : [],
     completedWords : [],
@@ -19,27 +20,18 @@ var flashCard = {
         this.currentWord    = [];
         this.wordBank       = [];
         this.completedWords = [];
+        this.setUpFlashcards();
+        this.getNextWord();
     },
 
-    setUpFlashCards : function (words) {
-        categories = words.categories;
+    setUpFlashcards : function () {
+        categories = this.data.categories;
         for (category in categories) {
             for (word in categories[category]) {
                 this.wordBank.push(categories[category][word]);
             }
         }
         this.wordBank = shuffle(this.wordBank);
-        $("#translation").hide();
-        $("#flashcard").click(function () {
-            flipped = $("#translation").is(":visible");
-            if (flipped) {
-                $("#translation").hide();
-                $("#word").show();
-            } else {
-                $("#translation").show();
-                $("#word").hide();
-            }
-        })
     },
 
     getPrevWord : function () {
@@ -66,19 +58,59 @@ var flashCard = {
         $("#translation").hide();
         $("#word").show();
         if (this.currentWord.length != 0) {
-            $("#word").html(
-                "<ruby>" + this.currentWord["word"] + "<rt>" + this.currentWord["furigana"] + "</rt></ruby>"
-            )
+            wordRuby = $("#word ruby");
+            wordRt   = wordRuby.find('rt');
+            wordRuby.html(this.currentWord["word"]);
+            wordRt.html(this.currentWord["furigana"]);
+            wordRuby.append(wordRt);
+            
             $("#translation").html(this.currentWord["translation"]);
         }
     },
 
-    setUpPrevNextButtons : function () {
-        $("#prev").click(function () {
-            flashCard.getPrevWord();
+    setUpEventListeners : function () {
+        $("#flashcard").on("click", function () {
+            flipped = $("#translation").is(":visible");
+            if (flipped) {
+                $("#translation").hide();
+                $("#word").show();
+            } else {
+                $("#translation").show();
+                $("#word").hide();
+            }
         });
-        $("#next").click(function () {
-            flashCard.getNextWord();
+        $("#prev").on("click", function () {
+            flashcard.getPrevWord();
+        });
+        $("#next").on("click", function () {
+            flashcard.getNextWord();
         });
     }
 };
+
+var options = {
+    setUpResetButton : function () {
+        $("#reset").on("click", function () {
+            flashcard.reset();
+        })
+    },
+
+    setUpDisplayFurigana : function () {
+        $("#display-furigana").on("change", function () {
+            if ($(this).is(":checked")) {
+                $("rt").each(function () {
+                    $(this).show();
+                });
+            } else {
+                $("rt").each(function () {
+                    $(this).hide();
+                });
+            }
+        });
+    },
+
+    setUpOptions : function () {
+        options.setUpResetButton();
+        options.setUpDisplayFurigana();
+    }
+}

@@ -30,7 +30,11 @@
                     <div id="flashcard" class="col-lg-6 col-md-10 col-sm-12 text-center border py-5 h-25">
                         <div class="d-flex h-100 justify-content-center align-items-center">
                             <h1>
-                                <span id="word"></span>
+                                <span id="word">
+                                    <ruby>
+                                        <rt></rt>
+                                    </ruby>
+                                </span>
                                 <span id="translation"></span>
                             </h1>
                         </div>
@@ -39,6 +43,20 @@
                         <div class="d-flex h-100 justify-content-center align-items-center">
                             <h1>&gt;</h1>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div id="options" class="col">
+                        Options:
+                        <label for="display-furigana">
+                            Furigana
+                        </label>
+                        <input type="checkbox" id="display-furigana" value="display-furigana" name="display-furigana" checked="checked">
+                        <button id="reset">
+                            Reset
+                        </button>
                     </div>
                 </div>
             </div>
