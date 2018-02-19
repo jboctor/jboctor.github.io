@@ -1,24 +1,27 @@
-var currentWord;
-var wordBank;
-var completedWords;
 $(document).ready(function () {
     $.ajax({
-        url: "/japanese/wordbank.json",
-        dataType: "json"
+        url : "/japanese/wordbank.json",
+        dataType : "json"
     }).done(function (data) {
-        reset();
-        setUpFlashCards(data);
-        setUpPrevNextButtons();
-        getNextWord();
+        flashCard.reset();
+        flashCard.setUpFlashCards(data);
+        flashCard.setUpPrevNextButtons();
+        flashCard.getNextWord();
     });
+});
 
-    var reset = function () {
+var flashCard = {
+    currentWord : [],
+    wordBank : [],
+    completedWords : [],
+
+    reset : function () {
         currentWord    = [];
         wordBank       = [];
         completedWords = [];
-    }
+    },
 
-    var setUpFlashCards = function (words) {
+    setUpFlashCards : function (words) {
         categories = words.categories;
         for (category in categories) {
             for (word in categories[category]) {
@@ -36,29 +39,29 @@ $(document).ready(function () {
                 $("#word").hide();
             }
         })
-    }
+    },
 
-    var getPrevWord = function () {
+    getPrevWord : function () {
         if (completedWords.length > 0) {
             if (currentWord.length != 0) {
                 wordBank.unshift(currentWord);
             }
             currentWord = completedWords.pop();
-            displayWord();
+            flashCard.displayWord();
         }
-    }
+    },
 
-    var getNextWord = function () {
+    getNextWord : function () {
         if (wordBank.length > 0) {
             if (currentWord.length != 0) {
                 completedWords.push(currentWord);
             }
             currentWord = wordBank.shift();
-            displayWord();
+            flashCard.displayWord();
         }
-    }
+    },
 
-    var displayWord = function () {
+    displayWord : function () {
         $("#translation").hide();
         $("#word").show();
         if (currentWord.length != 0) {
@@ -67,14 +70,14 @@ $(document).ready(function () {
             )
             $("#translation").html(currentWord["translation"]);
         }
-    }
+    },
 
-    var setUpPrevNextButtons = function () {
+    setUpPrevNextButtons : function () {
         $("#prev").click(function () {
-            getPrevWord();
+            flashCard.getPrevWord();
         });
         $("#next").click(function () {
-            getNextWord();
+            flashCard.getNextWord();
         });
     }
-});
+};
