@@ -3,10 +3,11 @@ var wordBank;
 var completedWords;
 $(document).ready(function () {
     $.ajax({
-        url: "/japanese/wordbank.json"
+        url: "/japanese/wordbank.json",
+        dataType: "json"
     }).done(function (data) {
         reset();
-        setUpFlashCards(JSON.parse(data));
+        setUpFlashCards(data);
         setUpPrevNextButtons();
         getNextWord();
     });
