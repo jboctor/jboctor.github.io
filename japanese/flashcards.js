@@ -39,7 +39,6 @@ $(document).ready(function () {
     }
 
     var getPrevWord = function () {
-        console.log(completedWords);
         if (completedWords.length > 0) {
             if (currentWord.length != 0) {
                 wordBank.unshift(currentWord);
@@ -50,7 +49,6 @@ $(document).ready(function () {
     }
 
     var getNextWord = function () {
-        console.log(wordBank);
         if (wordBank.length > 0) {
             if (currentWord.length != 0) {
                 completedWords.push(currentWord);
