@@ -1,23 +1,30 @@
+var currentWord;
+var wordBank;
+var completedWords;
 $(document).ready(function () {
-    var currentWord;
-    var wordBank       = [];
-    var completedWords = [];
-
-    $("#translation").hide();
     $.ajax({
         url: "/japanese/wordbank.json"
     }).done(function (data) {
+        reset();
         setUpFlashCards(JSON.parse(data));
+        setUpPrevNextButtons();
         getNextWord();
     });
+
+    var reset = function () {
+        currentWord    = [];
+        wordBank       = [];
+        completedWords = [];
+    }
 
     var setUpFlashCards = function (words) {
         categories = words.categories;
         for (category in categories) {
             for (word in categories[category]) {
-                wordBank.unshift(categories[category][word]);
+                wordBank.push(categories[category][word]);
             }
         }
+        $("#translation").hide();
         $("#flashcard").click(function () {
             flipped = $("#translation").is(":visible");
             if (flipped) {
@@ -28,13 +35,47 @@ $(document).ready(function () {
                 $("#word").hide();
             }
         })
-    };
+    }
+
+    var getPrevWord = function () {
+        console.log(completedWords);
+        if (completedWords.length > 0) {
+            if (currentWord.length != 0) {
+                wordBank.unshift(currentWord);
+            }
+            currentWord = completedWords.pop();
+            displayWord();
+        }
+    }
 
     var getNextWord = function () {
-        currentWord = wordBank.pop();
-        $("#word").html(
-            "<ruby>" + currentWord["word"] + "<rt>" + currentWord["furigana"] + "</rt></ruby>"
-        )
-        $("#translation").html(currentWord["translation"]);
+        console.log(wordBank);
+        if (wordBank.length > 0) {
+            if (currentWord.length != 0) {
+                completedWords.push(currentWord);
+            }
+            currentWord = wordBank.shift();
+            displayWord();
+        }
+    }
+
+    var displayWord = function () {
+        $("#translation").hide();
+        $("#word").show();
+        if (currentWord.length != 0) {
+            $("#word").html(
+                "<ruby>" + currentWord["word"] + "<rt>" + currentWord["furigana"] + "</rt></ruby>"
+            )
+            $("#translation").html(currentWord["translation"]);
+        }
+    }
+
+    var setUpPrevNextButtons = function () {
+        $("#prev").click(function () {
+            getPrevWord();
+        });
+        $("#next").click(function () {
+            getNextWord();
+        });
     }
 });
