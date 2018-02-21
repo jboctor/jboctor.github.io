@@ -1,6 +1,6 @@
 {
     "categories": {
-        "calendar": [
+        "Calendar": [
             {
                 "word": "日曜日",
                 "furigana": "にちようび",
@@ -35,6 +35,113 @@
                 "word": "土曜日",
                 "furigana": "どようび",
                 "translation": "Saturday"
+            }
+        ],
+        "Family": [
+            {
+                "word": "父",
+                "furigana": "ちち",
+                "translation": "Father"
+            },
+            {
+                "word": "母",
+                "furigana": "はは",
+                "translation": "Mother"
+            },
+            {
+                "word": "姉",
+                "furigana": "あね",
+                "translation": "Older Sister"
+            },
+            {
+                "word": "兄",
+                "furigana": "あに",
+                "translation": "Older Brother"
+            },
+            {
+                "word": "弟",
+                "furigana": "おとうと",
+                "translation": "Younger Brother"
+            },
+            {
+                "word": "妹",
+                "furigana": "いもうと",
+                "translation": "Younger Sister"
+            },
+            {
+                "word": "祖父",
+                "furigana": "そふ",
+                "translation": "Grandfather"
+            },
+            {
+                "word": "祖母",
+                "furigana": "そぼ",
+                "translation": "Grandmother"
+            },
+            {
+                "word": "叔父",
+                "furigana": "おじ",
+                "translation": "Uncle"
+            },
+            {
+                "word": "叔母",
+                "furigana": "おば",
+                "translation": "Aunt"
+            },
+            {
+                "word": "夫",
+                "furigana": "おっと",
+                "translation": "Husband"
+            },
+            {
+                "word": "妻",
+                "furigana": "つま",
+                "translation": "Wife"
+            },
+            {
+                "word": "息子",
+                "furigana": "むすこ",
+                "translation": "Son"
+            },
+            {
+                "word": "娘",
+                "furigana": "むすめ",
+                "translation": "Daughter"
+            },
+            {
+                "word": "家族",
+                "furigana": "かぞく",
+                "translation": "Family"
+            },
+            {
+                "word": "両親",
+                "furigana": "りょうしん",
+                "translation": "Parents"
+            },
+            {
+                "word": "兄弟",
+                "furigana": "きょうだい",
+                "translation": "Sibling"
+            },
+            {
+                "word": "子供",
+                "furigana": "こども",
+                "translation": "Child"
+            },
+            {
+                "word": "従兄弟",
+                "furigana": "いとこ",
+                "translation": "Cousin (Male)"
+            },
+            {
+                "word": "従姉妹",
+                "furigana": "いとこ",
+                "translation": "Cousin (Female)"
+            },
+            {
+                "word": "親戚",
+                "furigana": "しんせき",
+                "translation": "Relatives"
             }
         ]
     }
