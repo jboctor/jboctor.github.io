@@ -11,66 +11,62 @@
         <script type="text/javascript" src="/japanese/flashcards.js"></script>
     </head>
     <body class="noselect">
-        <div class="container-fluid">
-            <row>
-                <div class="container-fluid py-5 z-depth-2 border-bottom border-dark header">
-                    <div class="row">
-                        <div class="col text-center">
-                            <h1>
-                                Japanese Flashcards
-                            </h1>
-                        </div>
+        <div class="container-fluid border-bottom border-dark header">
+            <div class="row">
+                <div class="col py-1">
+                    <h1>
+                        Japanese Flashcards
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div id="prev" class="col-1 h-25 mx-1 border card-navigation">
+                    <div class="d-flex h-100 justify-content-center align-items-center">
+                        <h1>&lsaquo;</h1>
                     </div>
                 </div>
-                <div class="container py-5">
-                    <div class="row justify-content-center">
-                        <div id="prev" class="col-1 h-25 mx-1 border card-navigation">
-                            <div class="d-flex h-100 justify-content-center align-items-center">
-                                <h1>&lsaquo;</h1>
-                            </div>
-                        </div>
-                        <div id="flashcard" class="col-lg-6 col-md-10 col-sm-12 text-center border py-5 h-25">
-                            <div class="d-flex h-100 justify-content-center align-items-center">
-                                <h1>
-                                    <span id="word">
-                                        <ruby id="kanji">
-                                            <rt id="furigana"></rt>
-                                        </ruby>
-                                    </span>
-                                    <span id="translation"></span>
-                                </h1>
-                            </div>
-                        </div>
-                        <div id="next" class="col-1 h-25 mx-1 border card-navigation">
-                            <div class="d-flex h-100 justify-content-center align-items-center">
-                                <h1>&rsaquo;</h1>
-                            </div>
-                        </div>
+                <div id="flashcard" class="col-lg-6 col-md-10 col-sm-12 text-center border py-5 h-25">
+                    <div class="d-flex h-100 justify-content-center align-items-center">
+                        <h1>
+                            <span id="word">
+                                <ruby id="kanji">
+                                    <rt id="furigana"></rt>
+                                </ruby>
+                            </span>
+                            <span id="translation"></span>
+                        </h1>
                     </div>
                 </div>
-                <div id="options" class="container my-5">
-                    <div class="row justify-content-center my-1">
-                        <div id="furigana-button" class="col-2 text-center border option">
-                            Furigana
-                        </div>
-                    </div>
-                    <div id="categories" class="row justify-content-center my-1"></div>
-                    <div class="row justify-content-center my-1">
-                        <div id="reset-button" class="col-2 text-center border option">
-                            Reset
-                        </div>
+                <div id="next" class="col-1 h-25 mx-1 border card-navigation">
+                    <div class="d-flex h-100 justify-content-center align-items-center">
+                        <h1>&rsaquo;</h1>
                     </div>
                 </div>
-                <div class="container-fluid py-5 z-depth-2 border-top border-bottom border-dark footer">
-                    <div class="row">
-                        <div class="col text-center">
-                            <h2>
-                                Courtesy of John Boctor Services
-                            </h2>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div id="options" class="container my-5">
+            <div class="row justify-content-center my-1">
+                <div id="furigana-button" class="col-2 text-center border option">
+                    Furigana
                 </div>
-            </row>
+            </div>
+            <div id="categories" class="row justify-content-center my-1"></div>
+            <div class="row justify-content-center my-1">
+                <div id="reset-button" class="col-2 text-center border option">
+                    Reset
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid border-top border-dark footer">
+            <div class="row">
+                <div class="col">
+                    <h4>
+                        Courtesy of John Boctor Services
+                    </h4>
+                </div>
+            </div>
         </div>
     </body>
 </html>

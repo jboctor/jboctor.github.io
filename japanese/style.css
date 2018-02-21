@@ -1,3 +1,7 @@
+body
+{
+    background-color: #eeeeee;
+}
 .noselect
 {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -14,7 +18,7 @@
 }
 .option:hover
 {
-    background-color: #eeeeee;
+    background-color: #dddddd;
 }
 .option-selected
 {
@@ -22,18 +26,19 @@
 }
 .header
 {
-    background-color: #cccccc;
+    background-color: #7db87d;
+    color: #4e4116;
 }
 .footer
 {
-    background-color: #cccccc;
+    background-color: #7db87d;
+    color: #4e4116;
+    position: absolute;
+    bottom: 0;
 }
-.container-fluid {
-    padding: 0px;
- }
  .card-navigation:hover,
  #flashcard:hover
  {
-     background-color: #eeeeee;
+     background-color: #dddddd;
      cursor: pointer;
  }
