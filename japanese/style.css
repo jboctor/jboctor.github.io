@@ -14,5 +14,16 @@
 }
 .option-selected
 {
-    background-color: green;
+    background-color: #bbbbbb;
 }
+.header
+{
+    background-color: #cccccc;
+}
+.footer
+{
+    background-color: #cccccc;
+}
+.container-fluid {
+    padding: 0px;
+ }
