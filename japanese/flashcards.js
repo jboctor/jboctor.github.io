@@ -19,16 +19,16 @@ var flashcard = {
     categories : [],
 
     reset : function () {
-        this.currentWord    = [];
-        this.wordBank       = [];
-        this.completedWords = [];
-        this.setUpFlashcards();
-        this.getNextWord();
+        flashcard.currentWord    = [];
+        flashcard.wordBank       = [];
+        flashcard.completedWords = [];
+        flashcard.setUpFlashcards();
+        flashcard.getNextWord();
     },
 
     setUpData : function () {
-        this.categories = this.data.categories;
-        for (category in this.categories) {
+        flashcard.categories = flashcard.data.categories;
+        for (category in flashcard.categories) {
             options.selectedCategories[category] = true;
         }
     },
@@ -37,46 +37,46 @@ var flashcard = {
         options.setUpAndDisplayCategories();
         for (selectedCategory in options.selectedCategories) {
             if (options.selectedCategories[selectedCategory]) {
-                for (category in this.categories[selectedCategory]) {
-                    this.wordBank.push(this.categories[selectedCategory][category]);
+                for (category in flashcard.categories[selectedCategory]) {
+                    flashcard.wordBank.push(flashcard.categories[selectedCategory][category]);
                 }
             }
         }
-        this.wordBank = shuffle(this.wordBank);
+        flashcard.wordBank = shuffle(flashcard.wordBank);
     },
 
     getPrevWord : function () {
-        if (this.currentWord.length != 0) {
-            this.wordBank.unshift(this.currentWord);
+        if (flashcard.currentWord.length != 0) {
+            flashcard.wordBank.unshift(flashcard.currentWord);
         }
         if (this.completedWords.length > 0) {
-            this.currentWord = this.completedWords.pop();
+            flashcard.currentWord = flashcard.completedWords.pop();
         } else {
-            this.currentWord = [];
+            flashcard.currentWord = [];
         }
-        this.displayWord();
+        flashcard.displayWord();
     },
 
     getNextWord : function () {
-        if (this.currentWord.length != 0) {
-            this.completedWords.push(this.currentWord);
+        if (flashcard.currentWord.length != 0) {
+            flashcard.completedWords.push(flashcard.currentWord);
         }
-        if (this.wordBank.length > 0) {
-            this.currentWord = this.wordBank.shift();
+        if (flashcard.wordBank.length > 0) {
+            flashcard.currentWord = flashcard.wordBank.shift();
         } else {
-            this.currentWord = [];
+            flashcard.currentWord = [];
         }
-        this.displayWord();
+        flashcard.displayWord();
     },
 
     displayWord : function () {
         $("#translation").hide();
         $("#word").show();
-        if (this.currentWord.length != 0) {
-            furigana = $("#furigana").html(this.currentWord["furigana"]);
-            $("#kanji").html(this.currentWord["word"]);
+        if (flashcard.currentWord.length != 0) {
+            furigana = $("#furigana").html(flashcard.currentWord["furigana"]);
+            $("#kanji").html(flashcard.currentWord["word"]);
             $("#kanji").append(furigana);
-            $("#translation").html(this.currentWord["translation"]);
+            $("#translation").html(flashcard.currentWord["translation"]);
         } else {
             furigana = $("#furigana").html("");
             $("#kanji").html("");
@@ -116,8 +116,8 @@ var options = {
     },
 
     setUpDisplayFurigana : function () {
-        $("#furigana").toggle(this.furigana);
-        $("#furigana-button").toggleClass("option-selected", this.furigana);
+        $("#furigana").toggle(options.furigana);
+        $("#furigana-button").toggleClass("option-selected", options.furigana);
         $("#furigana-button").on("click", function () {
             options.furigana = !options.furigana;
             $("#furigana").toggle(options.furigana);
@@ -129,12 +129,12 @@ var options = {
         $("#categories").html("");
         for (category in flashcard.categories) {
             $("<div>" + category + "</div>").addClass("col-2 text-center border category option")
-                .toggleClass("option-selected", this.selectedCategories[category])
+                .toggleClass("option-selected", options.selectedCategories[category])
                 .attr("id", category)
                 .appendTo("#categories");
         }
-        for (selectedCategory in this.selectedCategories) {
-            $("#" + this.selectedCategories[selectedCategory]).addClass("option-selected");
+        for (selectedCategory in options.selectedCategories) {
+            $("#" + options.selectedCategories[selectedCategory]).addClass("option-selected");
         }
         $(".category").each(function () {
             $(this).on("click", function () {

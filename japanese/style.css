@@ -12,6 +12,10 @@
 {
     cursor: pointer;
 }
+.option:hover
+{
+    background-color: #eeeeee;
+}
 .option-selected
 {
     background-color: #bbbbbb;
@@ -26,4 +30,10 @@
 }
 .container-fluid {
     padding: 0px;
+ }
+ .card-navigation:hover,
+ #flashcard:hover
+ {
+     background-color: #eeeeee;
+     cursor: pointer;
  }
