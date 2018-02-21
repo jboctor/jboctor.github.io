@@ -1,6 +1,6 @@
 const client_id = '6df951cdbb9f4c3898408c618014b0de';
-const redirect_uri = 'http://jboctor.com/instagram/';
-//const redirect_uri = 'http://localhost:8000/instagram/';
+//const redirect_uri = 'http://jboctor.com/instagram/';
+const redirect_uri = 'http://localhost:8000/instagram/';
 const api_url = 'https://api.instagram.com';
 const version = '/v1';
 const authorize_endpoint = '/oauth/authorize/';
@@ -89,8 +89,8 @@ var instagram = {
       $('#user-photos').children()
         .last()
         .append(
-          '<div class="col-lg-3 col-md-4 col-sm-6">' +
-            '<img src="' + element.images.low_resolution.url + '" class="img-thumbnail"></img>' +
+          '<div class="col-lg-3 col-md-4 col-sm-6 p-3">' +
+            '<img src="' + element.images.low_resolution.url + '" class="rounded img-fluid"></img>' +
           '</div>'
         );
     });

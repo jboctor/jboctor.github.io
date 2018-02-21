@@ -5,11 +5,12 @@
 
         </title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/japanese/style.css">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="/japanese/shuffle.js"></script>
         <script type="text/javascript" src="/japanese/flashcards.js"></script>
     </head>
-    <body>
+    <body class="noselect">
         <div class="container-fluid">
             <div class="container my-5">
                 <div class="row">
@@ -31,8 +32,8 @@
                         <div class="d-flex h-100 justify-content-center align-items-center">
                             <h1>
                                 <span id="word">
-                                    <ruby>
-                                        <rt></rt>
+                                    <ruby id="kanji">
+                                        <rt id="furigana"></rt>
                                     </ruby>
                                 </span>
                                 <span id="translation"></span>
@@ -46,17 +47,15 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div id="options" class="col">
-                        Options:
-                        <label for="display-furigana">
-                            Furigana
-                        </label>
-                        <input type="checkbox" id="display-furigana" value="display-furigana" name="display-furigana" checked="checked">
-                        <button id="reset">
-                            Reset
-                        </button>
+            <div id="options" class="container my-5">
+                <div class="row justify-content-center my-1">
+                    <div id="furigana-button" class="col-2 text-center border option">
+                        Furigana
+                    </div>
+                </div>
+                <div class="row justify-content-center my-1">
+                    <div id="reset-button" class="col-2 text-center border option">
+                        Reset
                     </div>
                 </div>
             </div>

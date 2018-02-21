@@ -89,23 +89,21 @@ var flashcard = {
 };
 
 var options = {
+    furigana : false,
+
     setUpResetButton : function () {
-        $("#reset").on("click", function () {
+        $("#reset-button").on("click", function () {
             flashcard.reset();
         })
     },
 
     setUpDisplayFurigana : function () {
-        $("#display-furigana").on("change", function () {
-            if ($(this).is(":checked")) {
-                $("rt").each(function () {
-                    $(this).show();
-                });
-            } else {
-                $("rt").each(function () {
-                    $(this).hide();
-                });
-            }
+        $("#furigana").toggle(this.furigana);
+        $("#furigana-button").toggleClass("option-selected", this.furigana);
+        $("#furigana-button").on("click", function () {
+            options.furigana = !options.furigana;
+            $("#furigana").toggle(options.furigana);
+            $(this).toggleClass("option-selected", options.furigana);
         });
     },
 
