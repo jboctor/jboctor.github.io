@@ -33,7 +33,7 @@ body
 {
     background-color: #7db87d;
     color: #4e4116;
-    position: absolute;
+    position: fixed;
     bottom: 0;
 }
  .card-navigation:hover,
