@@ -1,5 +1,57 @@
 {
     "categories": {
+        "Directions": [
+            {
+                "word": "北",
+                "furigana": "きた",
+                "translation": "North"
+            },
+            {
+                "word": "南",
+                "furigana": "みなみ",
+                "translation": "South"
+            },
+            {
+                "word": "東",
+                "furigana": "ひがし",
+                "translation": "East"
+            },
+            {
+                "word": "西",
+                "furigana": "にし",
+                "translation": "West"
+            },
+            {
+                "word": "北東",
+                "furigana": "ほくとう",
+                "translation": "North-East"
+            },
+            {
+                "word": "北西",
+                "furigana": "ほくせい",
+                "translation": "North-West"
+            },
+            {
+                "word": "南東",
+                "furigana": "なんとう",
+                "translation": "South-East"
+            },
+            {
+                "word": "南西",
+                "furigana": "なんせい",
+                "translation": "South-West"
+            },
+            {
+                "word": "左",
+                "furigana": "ひだり",
+                "translation": "Left"
+            },
+            {
+                "word": "右",
+                "furigana": "みぎ",
+                "translation": "Right"
+            }
+        ],
         "Calendar": [
             {
                 "word": "日曜日",
