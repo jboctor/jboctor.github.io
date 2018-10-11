@@ -95,24 +95,24 @@ var roommates = {
             var row = $('<tr></tr>');
             switch (roommates[i][0][4]) {
                 case '1':
-                    var word = 'Single';
+                    var word = 'single';
                     break;
                 case '2':
-                    var word = 'Double';
+                    var word = 'double';
                     break;
                 case '3':
-                    var word = 'Triple';
+                    var word = 'triple';
                     break;
                 case '4':
-                    var word = 'Quadruple';
+                    var word = 'quadruple';
                     break;
                 default:
-                    var word = 'Unknown';
+                    var word = 'unknown';
             }
-            row.append('<th scope="row">' + word  + ' Occupancy Room</th>')
+            row.append('<th scope="row">' + word  + ' occupancy room</th>')
             for (var j = 0; j < 4; j++) {
                 if (j < roommates[i].length) {
-                    row.append('<td>' + roommates[i][j][0].toLowerCase() + ' ' + roommates[i][j][1].toLowerCase() + '</td>');
+                    row.append('<td>' + roommates[i][j][0].toLowerCase() + ' ' + roommates[i][j][1].toLowerCase() + '<br />' + roommates[i][j][2].toLowerCase() + '</td>');
                 } else {
                     row.append('<td></td>');
                 }
@@ -122,6 +122,36 @@ var roommates = {
         $('#roommates').append(table);
     },
     printLeftOvers: function (leftovers) {
+        var table = $('<table class="table"></table>')
+        for (var i = 0; i < leftovers.length; i++) {
+            var row = $('<tr></tr>');
+            switch (leftovers[i][0][4]) {
+                case '1':
+                    var word = 'single';
+                    break;
+                case '2':
+                    var word = 'double';
+                    break;
+                case '3':
+                    var word = 'triple';
+                    break;
+                case '4':
+                    var word = 'quadruple';
+                    break;
+                default:
+                    var word = 'unknown';
+            }
+            row.append('<th scope="row">' + word + ' occupancy room</th>');
+            for (var j = 0; j < 4; j++) {
+                if (j < leftovers[i].length) {
+                    row.append('<td>' + leftovers[i][j][0].toLowerCase() + ' ' + leftovers[i][j][1].toLowerCase() + '<br />' + leftovers[i][j][2].toLowerCase() + '</td>');
+                } else {
+                    row.append('<td></td>');
+                }
+            }
+            table.append(row);
+        }
+        $('#leftovers').append(table);
     }
 }
 
