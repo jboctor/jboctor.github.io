@@ -35,7 +35,7 @@ var roommates = {
             if (row[0][4] == row.length) {
                 complete.push(row);
             } else {
-                if (row[0][6] == 'm') {
+                if (row[0][6] == 'Male') {
                     males.push(row);
                 } else {
                     females.push(row);
@@ -50,49 +50,78 @@ var roommates = {
         roommates.printLeftOvers(doneMales[1].concat(doneFemales[1]));
     },
     handleLeftOvers: function (rooms) {
-        complete = [];
-        incomplete = [];
-        incompleteAgain = [];
+        var complete = [];
+        var incomplete = [];
+        var incompleteAgain = [];
         while (rooms.length > 0) {
-            room = rooms.pop();
-            remainingRoommates = parseInt(room[0][4]) - room.length;
-            for (i = 0; i < rooms.length; i++) {
-                otherRemainingRoommates = parseInt(rooms[i][0][4]) - rooms[i].length;
-                if (remainingRoommates == rooms[i].length && otherRemainingRoommates == room.length) {
+            var room = rooms.pop();
+            var remainingPeople = parseInt(room[0][4]) - room.length;
+            for (var i = 0; i < rooms.length; i++) {
+                var otherRoom = rooms[i];
+                var otherRemainingPeople = parseInt(otherRoom[0][4]) - otherRoom.length;
+                if (room[0][4] == otherRoom[0][4] && remainingPeople == otherRoom.length && otherRemainingPeople == room.length) {
                     room = room.concat(rooms.splice(i, 1)[0]);
                     complete.push(room);
                     break;
                 }
             }
-            if (parseInt(room[0][4]) - room.length != 0) {
+            if (room.length != room[0][4]) {
                 incomplete.push(room);
             }
         }
         while (incomplete.length > 0) {
-            room = incomplete.pop();
-            for (i = 0; i < incomplete.length; i++) {
-                remainingRoommates = parseInt(room[0][4]) - room.length;
-                if (remainingRoommates == 0) {
-                    complete.push(room);
-                    break;
-                }
-                if (incomplete[i][0][4] == room[0][4] && incomplete[i].length <= remainingRoommates) {
+            var room = incomplete.pop();
+            var i = incomplete.length
+            while (i--) {
+                var remainingPeople = parseInt(room[0][4]) - room.length;
+                var otherRoom = incomplete[i];
+                if (room[0][4] == otherRoom[0][4] && otherRoom.length <= remainingPeople) {
                     room = room.concat(incomplete.splice(i, 1)[0]);
+                    if (room[0][4] == room.length) {
+                        complete.push(room);
+                        break;
+                    }
                 }
-            }
-            if (parseInt(room[0][4]) - room.length != 0) {
+            }   
+            if (room.length != room[0][4]) {
                 incompleteAgain.push(room);
             }
         }
-        console.log(incomplete);
-        console.log(complete);
         return [complete, incompleteAgain];
     },
     printRoommates: function (roommates) {
-        console.log(roommates);
+        var table = $('<table class="table"></table>')
+        for (var i = 0; i < roommates.length; i++) {
+            var row = $('<tr></tr>');
+            switch (roommates[i][0][4]) {
+                case '1':
+                    var word = 'Single';
+                    break;
+                case '2':
+                    var word = 'Double';
+                    break;
+                case '3':
+                    var word = 'Triple';
+                    break;
+                case '4':
+                    var word = 'Quadruple';
+                    break;
+                default:
+                    var word = 'Unknown';
+            }
+            row.append('<th scope="row">' + word  + ' Occupancy Room</th>')
+            for (var j = 0; j < 4; j++) {
+                if (j < roommates[i].length) {
+                    row.append('<td>' + roommates[i][j][0] + ' ' + roommates[i][j][1] + '</td>');
+                } else {
+                    row.append('<td></td>');
+                }
+            }
+            table.append(row);
+        }
+        $('#roommates').append(table);
     },
     printLeftOvers: function (leftovers) {
-        console.log(leftovers);
     }
 }
 
