@@ -112,7 +112,7 @@ var roommates = {
             row.append('<th scope="row">' + word  + ' Occupancy Room</th>')
             for (var j = 0; j < 4; j++) {
                 if (j < roommates[i].length) {
-                    row.append('<td>' + camelize(roommates[i][j][0]) + ' ' + camelize(roommates[i][j][1]) + '</td>');
+                    row.append('<td>' + roommates[i][j][0].toLowerCase() + ' ' + roommates[i][j][1].toLowerCase() + '</td>');
                 } else {
                     row.append('<td></td>');
                 }
@@ -128,9 +128,3 @@ var roommates = {
 $(document).ready(function (){
     roommates.init();
 });
-
-function camelize(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-      return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-    }).replace(/\s+/g, '');
-  }
