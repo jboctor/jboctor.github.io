@@ -112,7 +112,7 @@ var roommates = {
             row.append('<th scope="row">' + word  + ' Occupancy Room</th>')
             for (var j = 0; j < 4; j++) {
                 if (j < roommates[i].length) {
-                    row.append('<td>' + camelize(roommates[i][j][0] + ' ' + roommates[i][j][1]) + '</td>');
+                    row.append('<td>' + camelize(roommates[i][j][0]) + ' ' + camelize(roommates[i][j][1]) + '</td>');
                 } else {
                     row.append('<td></td>');
                 }
