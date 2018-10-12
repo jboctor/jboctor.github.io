@@ -46,8 +46,11 @@ var roommates = {
         doneFemales = roommates.handleLeftOvers(females);
         complete = complete.concat(doneMales[0]);
         complete = complete.concat(doneFemales[0]);
+        leftovers = doneMales[1].concat(doneFemales[1]);
+        roommates.updateSummary(complete, leftovers);
         roommates.printRoommates(complete);
-        roommates.printLeftOvers(doneMales[1].concat(doneFemales[1]));
+        roommates.printLeftOvers(doneMales[1], $('#leftover-males'));
+        roommates.printLeftOvers(doneFemales[1], $('#leftover-females'));
     },
     handleLeftOvers: function (rooms) {
         var complete = [];
@@ -121,7 +124,7 @@ var roommates = {
         }
         $('#roommates').append(table);
     },
-    printLeftOvers: function (leftovers) {
+    printLeftOvers: function (leftovers, elementToAppend) {
         var table = $('<table class="table"></table>')
         for (var i = 0; i < leftovers.length; i++) {
             var row = $('<tr></tr>');
@@ -144,14 +147,59 @@ var roommates = {
             row.append('<th scope="row">' + word + ' occupancy room</th>');
             for (var j = 0; j < 4; j++) {
                 if (j < leftovers[i].length) {
-                    row.append('<td>' + leftovers[i][j][0].toLowerCase() + ' ' + leftovers[i][j][1].toLowerCase() + '<br />' + leftovers[i][j][2].toLowerCase() + '</td>');
+                    row.append(
+                        '<td>'
+                        + leftovers[i][j][0].toLowerCase()
+                        + ' '
+                        + leftovers[i][j][1].toLowerCase()
+                        + '<br />'
+                        + leftovers[i][j][2].toLowerCase()
+                        + '<br />'
+                        + leftovers[i][j][5].toLowerCase()
+                        + '</td>'
+                    );
                 } else {
                     row.append('<td></td>');
                 }
             }
             table.append(row);
         }
-        $('#leftovers').append(table);
+        elementToAppend.append(table);
+    },
+    updateSummary: function (roommates, leftovers) {
+        var totalRooms = 0;
+        var singleOccupancy = 0;
+        var doubleOccupancy = 0;
+        var tripleOccupancy = 0;
+        var quadrupleOccupancy = 0;
+        var leftoversTotal = 0;
+        for (var i = 0; i < roommates.length; i++) {
+            totalRooms++;
+            switch (roommates[i].length) {
+                case 1:
+                    singleOccupancy++;
+                    break;
+                case 2:
+                    doubleOccupancy++;
+                    break;
+                case 3:
+                    tripleOccupancy++;
+                    break;
+                case 4:
+                    quadrupleOccupancy++;
+                    break;
+                default:
+            }
+        }
+        for (var i = 0; i < leftovers.length; i++) {
+            leftoversTotal += leftovers[i].length;
+        }
+        $('#total-rooms').text(totalRooms + ' total rooms');
+        $('#single-occupancy').text(singleOccupancy + ' single occupancy rooms');
+        $('#double-occupancy').text(doubleOccupancy + ' double occupancy rooms');
+        $('#triple-occupancy').text(tripleOccupancy + ' triple occupancy rooms');
+        $('#quadruple-occupancy').text(quadrupleOccupancy + ' quadruple occupancy rooms');
+        $('#leftover-total').text(leftoversTotal + ' leftovers');
     }
 }
 
