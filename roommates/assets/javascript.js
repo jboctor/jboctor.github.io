@@ -115,7 +115,17 @@ var roommates = {
             row.append('<th scope="row">' + word  + ' occupancy room</th>')
             for (var j = 0; j < 4; j++) {
                 if (j < roommates[i].length) {
-                    row.append('<td>' + roommates[i][j][0].toLowerCase() + ' ' + roommates[i][j][1].toLowerCase() + '<br />' + roommates[i][j][2].toLowerCase() + '</td>');
+                    row.append(
+                        '<td>'
+                        + roommates[i][j][0].toLowerCase()
+                        + ' '
+                        + roommates[i][j][1].toLowerCase()
+                        + '<br />'
+                        + roommates[i][j][2].toLowerCase()
+                        + '<br />'
+                        + roommates[i][j][5].toLowerCase()
+                        + '</td>'
+                    );
                 } else {
                     row.append('<td></td>');
                 }
