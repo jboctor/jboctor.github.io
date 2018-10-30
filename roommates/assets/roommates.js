@@ -14,6 +14,7 @@ var roommates = {
             return false;
         })
     },
+    
     handleCsv: function (contents) {
         complete = []
         females = [];
@@ -42,16 +43,17 @@ var roommates = {
                 }
             }
         }
-        doneMales = roommates.handleLeftOvers(males);
+        doneMales   = roommates.handleLeftOvers(males);
         doneFemales = roommates.handleLeftOvers(females);
-        complete = complete.concat(doneMales[0]);
-        complete = complete.concat(doneFemales[0]);
-        leftovers = doneMales[1].concat(doneFemales[1]);
+        complete    = complete.concat(doneMales[0]);
+        complete    = complete.concat(doneFemales[0]);
+        leftovers   = doneMales[1].concat(doneFemales[1]);
         roommates.updateSummary(complete, leftovers);
         roommates.printRoommates(complete);
         roommates.printLeftOvers(doneMales[1], $('#leftover-males'));
         roommates.printLeftOvers(doneFemales[1], $('#leftover-females'));
     },
+    
     handleLeftOvers: function (rooms) {
         var complete = [];
         var incomplete = [];
@@ -92,6 +94,7 @@ var roommates = {
         }
         return [complete, incompleteAgain];
     },
+    
     printRoommates: function (roommates) {
         var table = $('<table class="table"></table>')
         for (var i = 0; i < roommates.length; i++) {
@@ -132,9 +135,10 @@ var roommates = {
             }
             table.append(row);
         }
-        $('#roommates').append(table);
+        $('#roommates').html(table);
     },
-    printLeftOvers: function (leftovers, elementToAppend) {
+    
+    printLeftOvers: function (leftovers, element) {
         var table = $('<table class="table"></table>')
         for (var i = 0; i < leftovers.length; i++) {
             var row = $('<tr></tr>');
@@ -174,8 +178,9 @@ var roommates = {
             }
             table.append(row);
         }
-        elementToAppend.append(table);
+        element.html(table);
     },
+    
     updateSummary: function (roommates, leftovers) {
         var totalRooms = 0;
         var singleOccupancy = 0;
