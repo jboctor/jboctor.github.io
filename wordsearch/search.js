@@ -106,6 +106,7 @@ $(document).ready(function () {
         }
     });
     $('#gridSize').on('input change', function (e) {
+        $('#gridSizeLabel').html(this.value + ' x ' + this.value);
         wordSearch.createGrid(this.value);
         wordSearch.printGrid();
     })
