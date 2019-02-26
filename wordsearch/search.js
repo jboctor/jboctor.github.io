@@ -1,5 +1,5 @@
 var wordSearch = {
-    possibleChars : 'abcdefghijklmnopqrstuvwxys',
+    possibleChars : 'abcdefghijklmnopqrstuvwxyz',
     gridSize : 0,
     grid : null,
     track: [],
@@ -61,7 +61,8 @@ var wordSearch = {
                 newGrid[i] = {};
                 for (j = y - 1; j <= y + 1; j++) {
                     if (i > -1 && i < this.gridSize &&
-                        j > -1 && j < this.gridSize)
+                        j > -1 && j < this.gridSize &&
+                        i != x && j != y)
                     {
                         newGrid[i][j] = this.grid[i][j];
                     } else {
