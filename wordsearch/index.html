@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            Welcome to the Word Search
+        </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/wordsearch/search.js"></script>
+        </head>
+        <div class="container">
+            <div class="row">
+                <div class="col h1 text-center">
+                    Welcome to the Word Search
+                </div>
+            </div>
+        </div>
+        <pre><code><div class="container text-monospace" id="grid">
+        </div></code></pre>
+        <div class="container" id="isPresent">
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-success d-none" id="present">
+                        Is Present!
+                    </div>
+                    <div class="alert alert-danger d-none" id="notPresent">
+                        Is Not Present!
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                        Size
+                    <label for="gridSize">
+                        4 x 4
+                    </label>
+                    <input name="gridSize" id="gridSize" type="range" min="1" max="25" value="4">
+                </div>
+                <div class="col">
+                    <pre><code>
+                    function isPresent(<input id="word" type="text" placeholder="word" size="6">, searchGrid) {
+                        if (word == '') {
+                            return true;
+                        }
+                        var letter = word.substr(0, 1);
+                        word = word.substr(1);
+                        for (var i in searchGrid) {
+                            for (var j in searchGrid[i]) {
+                                if (searchGrid[i][j] == letter) {
+                                    if (this.isPresent(word, this.createNewSearchGrid(parseInt(i), parseInt(j)))) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                </code></pre>
+                </div>
+            </div>
+        </div>
+        </html>
