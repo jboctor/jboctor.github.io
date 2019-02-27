@@ -98,31 +98,42 @@ var wordSearch = {
     createNewSearchGrid : function (x, y)
     {
         var newGrid = {};
-        for (i = x - 1; i <= x + 1; i++) {
-                newGrid[i] = {};
-                for (j = y - 1; j <= y + 1; j++) {
-                    if (i > -1 && i < this.gridSize &&
-                        j > -1 && j < this.gridSize &&
-                        !(i == x && j == y))
-                    {
-                        newGrid[i][j] = this.grid[i][j];
-                    } else {
-                        newGrid[i][j] = '';
-                    }
+        for (var i = x - 1; i <= x + 1; i++) {
+            newGrid[i] = {};
+            for (var j = y - 1; j <= y + 1; j++) {
+                if (i > -1 && i < this.gridSize &&
+                    j > -1 && j < this.gridSize &&
+                    !(i == x && j == y) &&
+                    this.hasNotBeenUsed(i, j))
+                {
+                    newGrid[i][j] = this.grid[i][j];
+                } else {
+                    newGrid[i][j] = '';
+                }
             }
         }
         return newGrid;
     },
 
+    hasNotBeenUsed : function (x, y)
+    {
+        for (var i = 0; i < this.track.length; i++){
+            if (this.track[i][0] == x && this.track[i][1] == y) {
+                return false;
+            }
+        }
+        return true;
+    },
+
     paintPath : function ()
     {
-        for (i = 0; i < this.gridSize; i++) {
-            for (j = 0; j < this.gridSize; j++) {
+        for (var i = 0; i < this.gridSize; i++) {
+            for (var j = 0; j < this.gridSize; j++) {
                 var id = i + "-" + j;
                 $('#' + id).removeClass('bg-primary')
             }
         }
-        for (i = 0; i < this.track.length; i++) {
+        for (var i = 0; i < this.track.length; i++) {
             var id = this.track[i][0] + "-" + this.track[i][1];
             $('#' + id).addClass('bg-primary')
         }
@@ -130,13 +141,13 @@ var wordSearch = {
 }
 
 $(document).ready(function () {
-    wordSearch.createGrid(4);
+    wordSearch.createGrid(10);
     wordSearch.printGrid();
     $('#word').focus();
     $('#word').on('keyup', function (e) {
         if (e.keyCode == 13) {
             wordSearch.track = [];
-            isPresent = wordSearch.isPresent(this.value.toLowerCase(), wordSearch.grid);
+            var isPresent = wordSearch.isPresent(this.value.toLowerCase(), wordSearch.grid);
             wordSearch.paintPath();
             if (isPresent) {
                 $('#present').removeClass('d-none');
