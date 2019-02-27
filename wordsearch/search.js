@@ -140,27 +140,36 @@ var wordSearch = {
     }
 }
 
+var form = {
+    intialize : function ()
+    {
+        $('#word').select();
+        $('#word').on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                wordSearch.track = [];
+                var isPresent = wordSearch.isPresent(this.value.toLowerCase(), wordSearch.grid);
+                wordSearch.paintPath();
+                if (isPresent) {
+                    $('#present').removeClass('d-none');
+                    $('#notPresent').addClass('d-none');
+                } else {
+                    $('#present').addClass('d-none');
+                    $('#notPresent').removeClass('d-none');
+                }
+                $(this).select();
+            }
+        });
+        $('#gridSize').on('input change', function (e) {
+            $('#gridSizeLabel').html(this.value + ' x ' + this.value);
+            wordSearch.createGrid(this.value);
+            wordSearch.printGrid();
+            $('#word').select();
+        });
+    }
+}
+
 $(document).ready(function () {
     wordSearch.createGrid(10);
     wordSearch.printGrid();
-    $('#word').focus();
-    $('#word').on('keyup', function (e) {
-        if (e.keyCode == 13) {
-            wordSearch.track = [];
-            var isPresent = wordSearch.isPresent(this.value.toLowerCase(), wordSearch.grid);
-            wordSearch.paintPath();
-            if (isPresent) {
-                $('#present').removeClass('d-none');
-                $('#notPresent').addClass('d-none');
-            } else {
-                $('#present').addClass('d-none');
-                $('#notPresent').removeClass('d-none');
-            }
-        }
-    });
-    $('#gridSize').on('input change', function (e) {
-        $('#gridSizeLabel').html(this.value + ' x ' + this.value);
-        wordSearch.createGrid(this.value);
-        wordSearch.printGrid();
-    })
+    form.intialize();
 });
