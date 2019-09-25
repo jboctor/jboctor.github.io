@@ -1,7 +1,61 @@
 var roommates = {
+    headers: {
+        firstName: null,
+        lastName: null,
+        email: null,
+        church: null,
+        roommateCode: null,
+        gender: null,
+        occupants: 0
+    },
+
     init: function () {
         roommates.submitListener();
     },
+
+    getHeaderRows: function (row) {
+        for (i =0; i < row.length; i++) {
+            if ($('#first-name').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.firstName = i;
+                break;
+            }
+        }
+        for (i =0; i < row.length; i++) {
+            if ($('#last-name').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.lastName = i;
+                break;
+            }
+        }
+        for (i =0; i < row.length; i++) {
+            if ($('#email').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.email = i;
+                break;
+            }
+        }
+        for (i =0; i < row.length; i++) {
+            if ($('#church').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.church = i;
+                break;
+            }
+        }
+        for (i =0; i < row.length; i++) {
+            if ($('#roommate-code').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.roommateCode = i;
+                break;
+            }
+        }
+        for (i =0; i < row.length; i++) {
+            if ($('#gender').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.gender = i;
+                break;
+            }
+        }
+        for (var key in roommates.headers) {
+            if (roommates.headers[key] == null) {
+            }
+        }
+    },
+
     submitListener: function () {
         $('#roommates-form').on('submit', function (e) {
             e.preventDefault();
@@ -23,23 +77,24 @@ var roommates = {
         parsedContents = Papa.parse(contents);
         parsedContentsData = parsedContents.data;
         parsedContentsLength = parsedContentsData.length;
+        roommates.getHeaderRows(parsedContentsData.shift());
         while (parsedContentsData.length > 0) {
-            row = parsedContentsData.pop();
-            if (row[5] in rooms) {
-                rooms[row[5]].push(row);
+            row = parsedContentsData.shift();
+            if (row[roommates.headers.roommateCode] in rooms) {
+                rooms[row[roommates.headers.roommateCode]].unshift(row);
             } else {
-                rooms[row[5]] = [row];
+                rooms[row[roommates.headers.roommateCode]] = [row];
             }
         }
         for (key in rooms) {
             row = rooms[key];
-            if (row[0][4] == row.length) {
-                complete.push(row);
+            if (row[0][roommates.headers.occupants] == row.length) {
+                complete.unshift(row);
             } else {
-                if (row[0][6] == 'Male') {
-                    males.push(row);
+                if (row[0][roommates.headers.gender].toLowerCase() == 'male') {
+                    males.unshift(row);
                 } else {
-                    females.push(row);
+                    females.unshift(row);
                 }
             }
         }
@@ -59,47 +114,47 @@ var roommates = {
         var incomplete = [];
         var incompleteAgain = [];
         while (rooms.length > 0) {
-            var room = rooms.pop();
-            var remainingPeople = parseInt(room[0][4]) - room.length;
+            var room = rooms.shift();
+            var remainingPeople = parseInt(room[0][roommates.headers.occupants]) - room.length;
             for (var i = 0; i < rooms.length; i++) {
                 var otherRoom = rooms[i];
-                var otherRemainingPeople = parseInt(otherRoom[0][4]) - otherRoom.length;
-                if (room[0][4] == otherRoom[0][4] && remainingPeople == otherRoom.length && otherRemainingPeople == room.length) {
+                var otherRemainingPeople = parseInt(otherRoom[0][roommates.headers.occupants]) - otherRoom.length;
+                if (room[0][roommates.headers.occupants] == otherRoom[0][roommates.headers.occupants] && remainingPeople == otherRoom.length && otherRemainingPeople == room.length) {
                     room = room.concat(rooms.splice(i, 1)[0]);
-                    complete.push(room);
+                    complete.unshift(room);
                     break;
                 }
             }
-            if (room.length != room[0][4]) {
-                incomplete.push(room);
+            if (room.length != room[0][roommates.headers.occupants]) {
+                incomplete.unshift(room);
             }
         }
         while (incomplete.length > 0) {
-            var room = incomplete.pop();
+            var room = incomplete.shift();
             var i = incomplete.length
             while (i--) {
-                var remainingPeople = parseInt(room[0][4]) - room.length;
+                var remainingPeople = parseInt(room[0][roommates.headers.occupants]) - room.length;
                 var otherRoom = incomplete[i];
-                if (room[0][4] == otherRoom[0][4] && otherRoom.length <= remainingPeople) {
+                if (room[0][roommates.headers.occupants] == otherRoom[0][roommates.headers.occupants] && otherRoom.length <= remainingPeople) {
                     room = room.concat(incomplete.splice(i, 1)[0]);
-                    if (room[0][4] == room.length) {
-                        complete.push(room);
+                    if (room[0][roommates.headers.occupants] == room.length) {
+                        complete.unshift(room);
                         break;
                     }
                 }
             }   
-            if (room.length != room[0][4]) {
-                incompleteAgain.push(room);
+            if (room.length != room[0][roommates.headers.occupants]) {
+                incompleteAgain.unshift(room);
             }
         }
         return [complete, incompleteAgain];
     },
     
-    printRoommates: function (roommates) {
+    printRoommates: function (roommateses) {
         var table = $('<table class="table"></table>')
-        for (var i = 0; i < roommates.length; i++) {
+        for (var i = 0; i < roommateses.length; i++) {
             var row = $('<tr></tr>');
-            switch (roommates[i][0][4]) {
+            switch (roommateses[i][0][roommates.headers.occupants]) {
                 case '1':
                     var word = 'single';
                     break;
@@ -117,16 +172,16 @@ var roommates = {
             }
             row.append('<th scope="row">' + word  + ' occupancy room</th>')
             for (var j = 0; j < 4; j++) {
-                if (j < roommates[i].length) {
+                if (j < roommateses[i].length) {
                     row.append(
                         '<td>'
-                        + roommates[i][j][0].toLowerCase()
+                        + roommateses[i][j][roommates.headers.firstName].toLowerCase()
                         + ' '
-                        + roommates[i][j][1].toLowerCase()
+                        + roommateses[i][j][roommates.headers.lastName].toLowerCase()
                         + '<br />'
-                        + roommates[i][j][2].toLowerCase()
+                        + roommateses[i][j][roommates.headers.email].toLowerCase()
                         + '<br />'
-                        + roommates[i][j][5].toLowerCase()
+                        + roommateses[i][j][roommates.headers.roommateCode].toLowerCase()
                         + '</td>'
                     );
                 } else {
@@ -142,7 +197,7 @@ var roommates = {
         var table = $('<table class="table"></table>')
         for (var i = 0; i < leftovers.length; i++) {
             var row = $('<tr></tr>');
-            switch (leftovers[i][0][4]) {
+            switch (leftovers[i][0][roommates.headers.occupants]) {
                 case '1':
                     var word = 'single';
                     break;
@@ -158,23 +213,21 @@ var roommates = {
                 default:
                     var word = 'unknown';
             }
-            row.append('<th scope="row">' + word + ' occupancy room</th>');
-            for (var j = 0; j < 4; j++) {
-                if (j < leftovers[i].length) {
-                    row.append(
-                        '<td>'
-                        + leftovers[i][j][0].toLowerCase()
-                        + ' '
-                        + leftovers[i][j][1].toLowerCase()
-                        + '<br />'
-                        + leftovers[i][j][2].toLowerCase()
-                        + '<br />'
-                        + leftovers[i][j][5].toLowerCase()
-                        + '</td>'
-                    );
-                } else {
-                    row.append('<td></td>');
-                }
+            //row.append('<th scope="row">' + word + ' occupancy room</th>');
+            row.append('<th scope="row"></th>');
+            loop = Math.ceil(leftovers[i].length / 4) * 4;
+            for (var j = 0; j < leftovers[i].length; j++) {
+                row.append(
+                    '<td>'
+                    + leftovers[i][j][roommates.headers.firstName].toLowerCase()
+                    + ' '
+                    + leftovers[i][j][roommates.headers.lastName].toLowerCase()
+                    + '<br />'
+                    + leftovers[i][j][roommates.headers.email].toLowerCase()
+                    + '<br />'
+                    + leftovers[i][j][roommates.headers.roommateCode].toLowerCase()
+                    + '</td>'
+                );
             }
             table.append(row);
         }
