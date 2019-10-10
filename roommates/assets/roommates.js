@@ -24,7 +24,10 @@ var roommates = {
     parseOccupants: function(occupants) {
         var regex = /\d (people|person)/g;
         var found = occupants.match(regex);
-        return found[0].split(' ')[0];
+        if (found != null && found.length > 0) {
+            return found[0].split(' ')[0];
+        }
+        return occupants;
     },
 
     getHeaderRows: function (row) {
@@ -234,8 +237,8 @@ var roommates = {
                 default:
                     var word = 'unknown';
             }
-            //row.append('<th scope="row">' + word + ' occupancy room</th>');
-            row.append('<th scope="row"></th>');
+            row.append('<th scope="row">' + word + ' occupancy room</th>');
+            //row.append('<th scope="row"></th>');
             loop = Math.ceil(leftovers[i].length / 4) * 4;
             for (var j = 0; j < leftovers[i].length; j++) {
                 row.append(
