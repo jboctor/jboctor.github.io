@@ -6,45 +6,65 @@ var roommates = {
         church: null,
         roommateCode: null,
         gender: null,
-        occupants: 0
+        occupants: null
     },
 
     init: function () {
         roommates.submitListener();
     },
 
+    findOccupants: function(parsedContentsData) {
+        for (i = 0; i < parsedContentsData.length; i++) {
+            parsedContentsData[i][roommates.headers.occupants] = roommates.parseOccupants(parsedContentsData[i][roommates.headers.occupants]);
+        }
+
+        return parsedContentsData;
+    },
+
+    parseOccupants: function(occupants) {
+        var regex = /\d (people|person)/g;
+        var found = occupants.match(regex);
+        return found.split(' ')[0];
+    },
+
     getHeaderRows: function (row) {
-        for (i =0; i < row.length; i++) {
+        for (i = 0; i < row.length; i++) {
             if ($('#first-name').val().toLowerCase() == row[i].toLowerCase()) {
                 roommates.headers.firstName = i;
                 break;
             }
         }
-        for (i =0; i < row.length; i++) {
+        for (i = 0; i < row.length; i++) {
             if ($('#last-name').val().toLowerCase() == row[i].toLowerCase()) {
                 roommates.headers.lastName = i;
                 break;
             }
         }
-        for (i =0; i < row.length; i++) {
+        for (i = 0; i < row.length; i++) {
             if ($('#email').val().toLowerCase() == row[i].toLowerCase()) {
                 roommates.headers.email = i;
                 break;
             }
         }
-        for (i =0; i < row.length; i++) {
+        for (i = 0; i < row.length; i++) {
             if ($('#church').val().toLowerCase() == row[i].toLowerCase()) {
                 roommates.headers.church = i;
                 break;
             }
         }
-        for (i =0; i < row.length; i++) {
+        for (i = 0; i < row.length; i++) {
             if ($('#roommate-code').val().toLowerCase() == row[i].toLowerCase()) {
                 roommates.headers.roommateCode = i;
                 break;
             }
         }
-        for (i =0; i < row.length; i++) {
+        for (i = 0; i < row.length; i++) {
+            if ($('#occupants').val().toLowerCase() == row[i].toLowerCase()) {
+                roommates.headers.occupants = i;
+                break;
+            }
+        }
+        for (i = 0; i < row.length; i++) {
             if ($('#gender').val().toLowerCase() == row[i].toLowerCase()) {
                 roommates.headers.gender = i;
                 break;
@@ -78,6 +98,7 @@ var roommates = {
         parsedContentsData = parsedContents.data;
         parsedContentsLength = parsedContentsData.length;
         roommates.getHeaderRows(parsedContentsData.shift());
+        parsedContentsData = roommates.findOccupants(parsedContentsData);
         while (parsedContentsData.length > 0) {
             row = parsedContentsData.shift();
             if (row[roommates.headers.roommateCode] in rooms) {
@@ -88,7 +109,7 @@ var roommates = {
         }
         for (key in rooms) {
             row = rooms[key];
-            if (row[0][roommates.headers.occupants] == row.length) {
+            if (roommates.parseOccupants(row[0][roommates.headers.occupants]) == row.length) {
                 complete.unshift(row);
             } else {
                 if (row[0][roommates.headers.gender].toLowerCase() == 'male') {
