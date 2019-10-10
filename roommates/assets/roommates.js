@@ -14,7 +14,9 @@ var roommates = {
     },
 
     findOccupants: function(parsedContentsData) {
+        console.log(parsedContentsData);
         for (i = 0; i < parsedContentsData.length; i++) {
+            console.log(parsedContentsData[i][roommates.headers.occupants]);
             parsedContentsData[i][roommates.headers.occupants] = roommates.parseOccupants(parsedContentsData[i][roommates.headers.occupants]);
         }
 
