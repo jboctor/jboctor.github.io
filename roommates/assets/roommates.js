@@ -14,9 +14,7 @@ var roommates = {
     },
 
     findOccupants: function(parsedContentsData) {
-        console.log(parsedContentsData);
         for (i = 0; i < parsedContentsData.length; i++) {
-            console.log(parsedContentsData[i][roommates.headers.occupants]);
             parsedContentsData[i][roommates.headers.occupants] = roommates.parseOccupants(parsedContentsData[i][roommates.headers.occupants]);
         }
 
@@ -26,7 +24,7 @@ var roommates = {
     parseOccupants: function(occupants) {
         var regex = /\d (people|person)/g;
         var found = occupants.match(regex);
-        return found.split(' ')[0];
+        return found[0].split(' ')[0];
     },
 
     getHeaderRows: function (row) {
